@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Attendance System</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        h1 {
+            color: blue;
+        }
+
+        .container {
+            background: white;
+            width: 70%;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        th {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Student Attendance System</h1>
+
+    <div class="container">
+
+        <h2>Mark Attendance</h2>
+
+        <input type="text" id="name" placeholder="Enter Student Name">
+
+        <button onclick="addStudent()">Add Student</button>
+
+        <table>
+            <tr>
+                <th>Student Name</th>
+                <th>Attendance</th>
+            </tr>
+
+            <tbody id="studentList">
+            </tbody>
+        </table>
+
+        <h3 id="result">Attendance Summary</h3>
+
+    </div>
+
+    <script>
+
+        let present = 0;
+        let absent = 0;
+
+        function addStudent() {
+
+            let name = document.getElementById("name").value;
+
+            if (name === "") {
+                alert("Please enter student name");
+                return;
+            }
+
+            let table = document.getElementById("studentList");
+
+            let row = table.insertRow();
+
+            row.insertCell(0).innerHTML = name;
+
+            let cell = row.insertCell(1);
+
+            cell.innerHTML = `
+                <button onclick="markPresent(this)">Present</button>
+                <button onclick="markAbsent(this)">Absent</button>
+            `;
+
+            document.getElementById("name").value = "";
+
+        }
+
+        function markPresent(button) {
+            button.parentElement.innerHTML = "Present";
+            present++;
+            updateSummary();
+        }
+
+        function markAbsent(button) {
+            button.parentElement.innerHTML = "Absent";
+            absent++;
+            updateSummary();
+        }
+
+        function updateSummary() {
+            document.getElementById("result").innerHTML =
+                "Present: " + present + " | Absent: " + absent;
+        }
+
+    </script>
+
+</body>
+</html>
